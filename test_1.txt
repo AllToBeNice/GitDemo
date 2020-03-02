@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <ctype.h>
+#include <io.h>
+// #include <unistd.h>
+#define LEN 1000
+#define OFFSET 30
+
+void binFile(char [LEN], int);
+int main(int argc, char *argv[]){
+	if(argc != 3){
+		printf("usage: %s operation_name file_path offsset_num\n",argv[0]);
+		exit(EXIT_FAILURE);
+	}
+	else{ 
+		printf("The result is: \n\n");
+		binFile(argv[1], atoi(argv[2]));
+		return 0;
+	}
+}
