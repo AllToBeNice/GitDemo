@@ -14,12 +14,12 @@ Description: Show any file in HEX.
 #include <io.h>
 // #include <unistd.h>
 #define LEN 1000
-#define OFFSET 30
+#define WIDTH 30
 
 void binFile(char [LEN], int);
 int main(int argc, char *argv[]){
 	if(argc != 3){
-		printf("usage: %s operation_name file_path offsset_num\n",argv[0]);
+		printf("%s usage: operation_name file_path width\n",argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	else{ 
@@ -29,27 +29,27 @@ int main(int argc, char *argv[]){
 	}
 }
 
-void binFile(char filename[LEN], int offset){
+void binFile(char filename[LEN], int width){
 	assert(access(filename, 4) == 0);
 	
 	int i, j, n;
-	unsigned char temp[offset] = {};
+	unsigned char temp[width] = {};
 	FILE *fp = fopen(filename, "rb");
 	
 	printf(" Offset  %*sBytes%*s   %*sCharacters%*s\n", \
-		(int)((3*offset-6)/2), " ", (int)((3*offset-6)/2), " ",\
-		(int)((offset-10)/2+1), " ", (int)((offset-10)/2), " ");
+		(int)((3*width-6)/2), " ", (int)((3*width-6)/2), " ",\
+		(int)((width-10)/2+1), " ", (int)((width-10)/2), " ");
 	printf(" ------   ");
-	for(i=0;i<(3*offset-1);i++) printf("%c", '-');
+	for(i=0;i<(3*width-1);i++) printf("%c", '-');
 	printf("   ");
-	for(i=0;i<offset;i++) printf("%c", '-');
+	for(i=0;i<width;i++) printf("%c", '-');
 	printf("\n");
 	
 	j = 0;
 	while(1){
-		n = fread(temp, sizeof(unsigned char), offset, fp);
+		n = fread(temp, sizeof(unsigned char), width, fp);
 		
-		printf("  %5d", offset * j);
+		printf("  %5d", width * j);
 		j++;
 		printf("   ");
 		
@@ -57,8 +57,8 @@ void binFile(char filename[LEN], int offset){
 			if(i == 0) printf("%02X", temp[i]);
 			else printf(" %02X", temp[i]);
 		}
-		if(n < offset){
-			for(i=n;i<offset;i++) printf("   ");
+		if(n < width){
+			for(i=n;i<width;i++) printf("   ");
 		}
 		printf("   ");
 		
@@ -68,8 +68,8 @@ void binFile(char filename[LEN], int offset){
 		}
 		printf("\n");
 		
-		for(i=0;i<offset+1;i++) temp[i] = '\0';
-		if(n < offset) break;
+		for(i=0;i<width+1;i++) temp[i] = '\0';
+		if(n < width) break;
 	}
 	fclose(fp);
 }
