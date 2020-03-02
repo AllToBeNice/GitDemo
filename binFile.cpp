@@ -3,7 +3,7 @@ Name: binFile.cpp
 Author: yuanchenzhu
 Created: 03-02-2020
 Last Modified: 03-02-2020
-Version: 1.0
+Version: 1.1
 Description: Show any file in HEX.
 */
 
@@ -12,14 +12,13 @@ Description: Show any file in HEX.
 #include <assert.h>
 #include <ctype.h>
 #include <io.h>
-// #include <unistd.h>
 #define LEN 1000
 #define WIDTH 30
 
 void binFile(char [LEN], int);
 int main(int argc, char *argv[]){
 	if(argc != 3){
-		printf("%s usage: operation_name file_path width\n",argv[0]);
+		printf("%s usage: operation file_path width\n",argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	else{ 
@@ -36,7 +35,7 @@ void binFile(char filename[LEN], int width){
 	unsigned char temp[width] = {};
 	FILE *fp = fopen(filename, "rb");
 	
-	printf(" Offset  %*sBytes%*s   %*sCharacters%*s\n", \
+	printf(" Width  %*sBytes%*s   %*sCharacters%*s\n", \
 		(int)((3*width-6)/2), " ", (int)((3*width-6)/2), " ",\
 		(int)((width-10)/2+1), " ", (int)((width-10)/2), " ");
 	printf(" ------   ");
